@@ -13,8 +13,18 @@ return new class extends Migration
     {
         Schema::create('article_tag', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('article_id')->constrained('articles');
-            $table->foreignId('tag_id')->constrained('tags');
+            
+            // Definizione dei campi foreign key
+            $table->unsignedBigInteger('article_id');
+            $table->unsignedBigInteger('tag_id');
+            
+            // Creazione delle foreign key constraints
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+            
+            // Indice unico per evitare duplicati nella relazione many-to-many
+            $table->unique(['article_id', 'tag_id']);
+            
             $table->timestamps();
         });
     }

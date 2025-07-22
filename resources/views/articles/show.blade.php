@@ -5,6 +5,11 @@
                 <h1>{{ $article->title }}  </h1>
                 <img src="{{Storage::url($article->image)}}" alt="immagine articolo" class="img-fluid">
                 <p class="mt-3">{{ $article->content }}</p>
+                <div class="">
+                @foreach ($article->tags as $tag)
+                <span class="badge bg-primary m-1">{{ $tag->name }}</span>
+                 @endforeach
+                </div>
                 <div class="d-flex justify-content-center">
                     <a href="{{ route('articles.index') }}" class="btn btn-primary m-3">Torna indietro</a>
                     <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-primary m-3">Modifica</a>

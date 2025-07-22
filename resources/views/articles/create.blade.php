@@ -40,6 +40,16 @@
       </div>
     
         
+      <div class="mb-3">
+       
+          @foreach ($tags as $tag)
+            <input type="checkbox" id="{{'tagCheckbox'.$tag->id }}" name="tags[]" value="{{ $tag->id }}">
+            <label for="{{'tagCheckbox'.$tag->id }}">{{ $tag->name }}</label>
+            
+          @endforeach
+        
+        <p>non trovi il tag che stai cercando? <a href="{{ route('tags.create') }}">Crea un nuovo tag</a></p>
+      </div>
     
       
       

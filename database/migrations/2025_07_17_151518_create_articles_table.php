@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('content');
             $table->string('image');
             $table->timestamps();
+            // Rimossa foreign key per tag_id - usiamo relazione many-to-many tramite tabella pivot
         });
     }
 

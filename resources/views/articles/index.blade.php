@@ -12,6 +12,7 @@
     @foreach ($articles as $article)
     <div class='col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center mb-3'>
 <x-card
+    :article="$article"
     title="{{ $article['title'] }}"
     content="{{ $article['content'] }}"
     image="{{ $article['image'] }}"

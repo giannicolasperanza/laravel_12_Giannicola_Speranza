@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
 
@@ -14,8 +15,10 @@ class ArticleController extends Controller
      */
     public function index()
     {
-       $articles = Article::all();
-        return view('articles.index',['articles'=>$articles]);
+        // Utilizzo eager loading per caricare la relazione tags insieme agli articoli
+        // Questo evita il problema delle N+1 query quando accediamo a $article->tags nel template
+        $articles = Article::with('tags')->get();
+        return view('articles.index', ['articles' => $articles]);
     }
 
     /**
@@ -23,7 +26,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        $tags = Tag::all();
+        return view('articles.create', compact('tags'));
     }
 
     /**
@@ -43,6 +47,8 @@ class ArticleController extends Controller
             'image'=>$image,
          
         ]);
+
+        $article->tags()->attach($request->tags);
         return redirect('/articles')->with('success', 'Articolo creato con successo');
     }
 
